@@ -29,6 +29,7 @@ public class GameState : GameObjectState
 	/** Add GameState modules. */
 	private void initComponents()
 	{
-		// gameObject.AddComponent<ComponentName>();
+		gameObject.AddComponent<CreateCircle>();
+		gameObject.AddComponent<GravitateCircle>();
 	}
 }
