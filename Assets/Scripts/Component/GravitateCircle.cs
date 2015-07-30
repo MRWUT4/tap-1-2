@@ -38,10 +38,10 @@ public class GravitateCircle : MonoBehaviour
     /** Gravitation functions. */
     private void updateCircleVOForce()
     {
-        for( int i = 0; i < levelVO.gameObjectList.Count; ++i )
+        for( int i = 0; i < levelVO.circleVOList.Count; ++i )
         {
-            GameObject gameObject = levelVO.gameObjectList[ i ];
-            gravitateToCenter( gameObject );
+            CircleVO circleVO = levelVO.circleVOList[ i ];
+            gravitateToCenter( circleVO.gameObject );
         }
     }
 
@@ -53,6 +53,9 @@ public class GravitateCircle : MonoBehaviour
         float dist = Vector3.Distance( gameObject.transform.position, transform.position );
 
         if( rigidbody )
-            rigidbody.AddForce( -direction.direction * levelVO.force * dist );
+        {
+            Vector3 forceVector3 = -direction.direction * levelVO.force * dist;
+            rigidbody.AddForce( forceVector3 );
+        }
      }
 }
