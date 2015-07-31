@@ -37,8 +37,8 @@ public class Proxy : GameObjectProxy
 	
 	public int level = 0;
 	public int numCircles = 3;
+	public LevelVO levelVO;
 	
-	private LevelVO _levelVO;
 	private List<GameObject> _levelCircleVOList;
 
 
@@ -62,20 +62,31 @@ public class Proxy : GameObjectProxy
 	 * Game
 	 */
 
-	public LevelVO levelVO
+	// public LevelVO levelVO
+	// {
+	// 	get 
+	//     { 
+	//         if( _levelVO == null )
+	//         {
+
+	//         }
+
+	//         return _levelVO;
+	//     }
+
+	//     set
+	//     {
+	//     	_levelVO = value;
+	//     }
+	// }
+
+	public LevelVO GetLevelVO()
 	{
-		get 
-	    { 
-	        if( _levelVO == null )
-	        {
-	        	_levelVO = new LevelVO();
-	        	_levelVO.circleVOList = levelCircleVOList;
-	        }
+	   	LevelVO vo = new LevelVO();
+    	vo.circleVOList = levelCircleVOList;
 
-	        return _levelVO;
-	    }
+    	return vo;
 	}
-
 	
 	public List<CircleVO> levelCircleVOList
 	{

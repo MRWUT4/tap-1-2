@@ -13,7 +13,7 @@ public class SetupCircle : MonoBehaviour
      * Component interface.
      */
 
-    public void Start()
+    public void Awake()
     {
         initVariables();
         initGameObjectCopys();
@@ -47,7 +47,6 @@ public class SetupCircle : MonoBehaviour
         {
             CircleVO circleVO = levelVO.circleVOList[ i ];
             circleVO.index = i;
-
 
             setupCircleText( circleVO );
             animateGameObject( circleVO);

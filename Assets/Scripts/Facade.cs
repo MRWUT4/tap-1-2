@@ -40,7 +40,29 @@ public class Facade : MonoBehaviour
 	{
 		stateMachine = new StateMachine();
 		
+		stateMachine.OnExit += stateMachineOnExitHandler;
+
 		stateMachine.AddState( Names.GameState, new GameState( new GameObject(), proxy ) );
 		stateMachine.SetState( Names.GameState );
+	}
+
+	private void stateMachineOnExitHandler(State state, string message)
+	{
+		switch( state.id )
+		{
+			case Names.GameState:
+			
+				switch( message )
+				{
+					case InteractionCircle.CONTINUE:
+						stateMachine.SetState( Names.GameState );
+						break;
+
+					case InteractionCircle.GAMEOVER:
+						break;
+				}
+
+				break;
+		}
 	}
 }

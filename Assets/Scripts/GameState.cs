@@ -14,6 +14,11 @@ public class GameState : GameObjectState
 		initComponents();
 	}
 
+	public override void Exit()
+	{
+		destroyComponents();
+	}
+
 
 	/**
 	 * Private interface.
@@ -29,6 +34,7 @@ public class GameState : GameObjectState
 	/** Add GameState modules. */
 	private void initComponents()
 	{
+		gameObject.AddComponent<ClearLevel>();
 		gameObject.AddComponent<SetupCircle>();
 		gameObject.AddComponent<GravitateCircle>();
 		gameObject.AddComponent<InteractionCircle>();

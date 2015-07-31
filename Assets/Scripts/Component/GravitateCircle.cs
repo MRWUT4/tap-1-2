@@ -11,7 +11,7 @@ public class GravitateCircle : MonoBehaviour
      * Component interface.
      */
 
-    public void Start()
+    public void Awake()
     {
         initVariables();
     }

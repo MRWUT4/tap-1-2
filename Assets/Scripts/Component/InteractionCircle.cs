@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 public class InteractionCircle : MonoBehaviour
 {
+    public const string CONTINUE = "CONTINUE";
+    public const string GAMEOVER = "GAMEOVER";
+
     private State state;
     private Proxy proxy;
     private LevelVO levelVO;
@@ -75,7 +78,7 @@ public class InteractionCircle : MonoBehaviour
      * Component interface.
      */
 
-    public void Start()
+    public void Awake()
     {
         initVariables();
         initCircleInteraction();
@@ -105,16 +108,19 @@ public class InteractionCircle : MonoBehaviour
 
 
     /** Circle interaction. */
-    private void initCircleInteraction()
+    private void initCircleInteraction(bool boolean = true)
     {
     	for( int i = 0; i < circleVOList.Count; ++i )
     	{
     	    CircleVO circleVO = circleVOList[ i ];
     	    
     	    GameObject gameObject = circleVO.gameObject;
-    	    
     	    Interaction interaction = gameObject.GetComponent<Interaction>();
-    	    interaction.OnMouseUp += interactionOnMouseUpHandler;
+
+            if( boolean )
+               interaction.OnMouseUp += interactionOnMouseUpHandler;
+            else
+    	       interaction.OnMouseUp -= interactionOnMouseUpHandler;
     	}
     }
 
@@ -134,16 +140,13 @@ public class InteractionCircle : MonoBehaviour
         NotationVO smallestNotationVO = this.smallestNotationVO;
         NotationVO notationVO = circleVO.notationVO;
 
-        // bool selectionIsComplete = selectionList.Count == circleVOList.Count;
         bool selectionIsSmallest = smallestNotationVO == notationVO;
-
-        Debug.Log( selectionIsSmallest + " " + notationVO );
 
         if( selectionIsComplete )
         {
-            Debug.Log( "next level" );
             // TODO: next level 
-            tweenCircleOut( circleVO );
+            Tween tween = tweenCircleOut( circleVO );
+            addTweenCompleteHandler( tween );
         }
         else
         if( selectionIsSmallest )
@@ -154,6 +157,7 @@ public class InteractionCircle : MonoBehaviour
         }
         else
         {
+            initCircleInteraction( false );
             Debug.Log( "game over" );
             // TODO: game over
         }
@@ -161,10 +165,24 @@ public class InteractionCircle : MonoBehaviour
     }
 
 
+    /** Tween complete handler functions. */
+    private void addTweenCompleteHandler(Tween tween)
+    {
+        tween.OnComplete += tweenOnCompleteHandler;
+    }
+
+    private void tweenOnCompleteHandler(Tween tween)
+    {
+        state.InvokeExit( CONTINUE );
+    }
+
+
     /** Tween functions. */
-    private void tweenCircleOut(CircleVO circleVO)
+    private Tween tweenCircleOut(CircleVO circleVO)
     {
         Mutate mutate = circleVO.gameObject.GetComponent<Mutate>();
-    	doTween.Add( tweenFactory.AlphaScaleHideBounceInOut( mutate ) );
+        Tween tween = doTween.Add( tweenFactory.AlphaScaleHideBounceInOut( mutate ) );
+
+    	return tween;
     }
 }
