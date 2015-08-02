@@ -15,7 +15,7 @@ public class TweenFactory
     public Tween AlphaScaleHideBounceInOut(Mutate mutate)
     {
         return new DoTween().To( mutate, .6f, new
-        { 
+        {
             alpha = 0,
             scaleX = 0,
             scaleY = 0,

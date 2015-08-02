@@ -4,7 +4,7 @@ public class ClearLevel : MonoBehaviour
 {
     private State state;
     private Proxy proxy;
-    private LevelVO levelVO;
+    // private LevelVO levelVO;
 
 
     /**
@@ -27,7 +27,7 @@ public class ClearLevel : MonoBehaviour
     {
         state = gameObject.GetComponent<StateInfo>().state;
         proxy = state.proxy as Proxy;
-        levelVO = proxy.levelVO;
+        // levelVO = proxy.levelVO;
     }
 
 

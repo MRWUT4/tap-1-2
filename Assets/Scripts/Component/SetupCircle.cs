@@ -70,15 +70,6 @@ public class SetupCircle : MonoBehaviour
 
         float scale = Random.Range( levelVO.minScale, levelVO.maxScale );
         doTween.Add( tweenFactory.AlphaScaleShowBounceInOut( mutate, scale, i ) );
-
-        // doTween.To( mutate, 1.2f, new 
-        // { 
-        //     delay = i * .1,
-        //     alpha = 1,
-        //     scaleX = scale,
-        //     scaleY = scale,
-        //     ease = "Back.EaseInOut"
-        // });
     }
 
 

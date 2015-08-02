@@ -10,6 +10,7 @@ public class Facade : MonoBehaviour
 
 	private StateMachine stateMachine;
 	private Names names;
+	private Dictionary<string, GameObject> states;
 
 
 	/**
@@ -31,7 +32,7 @@ public class Facade : MonoBehaviour
 	/** Variables. */
 	private void initVariables()
 	{
-		
+		states = proxy.states;
 	}
 
 
@@ -42,7 +43,7 @@ public class Facade : MonoBehaviour
 		
 		stateMachine.OnExit += stateMachineOnExitHandler;
 
-		stateMachine.AddState( Names.GameState, new GameState( new GameObject(), proxy ) );
+		stateMachine.AddState( Names.GameState, new GameState( states[ "Game" ], proxy ) );
 		stateMachine.SetState( Names.GameState );
 	}
 

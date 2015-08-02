@@ -29,9 +29,20 @@ public class CircleVO
 }
 
 
+
 [Serializable]
 public class Proxy : GameObjectProxy
 {
+	[Serializable]
+	public struct StateVO 
+	{
+		public string name;
+		public GameObject gameObject;
+	}
+
+	public StateVO[] stateList;
+
+
 	public GameObject circlePrefab;
 	public delegate NotationVO NotationDelegate(int level, int index, float seed);
 	
@@ -40,14 +51,33 @@ public class Proxy : GameObjectProxy
 	public LevelVO levelVO;
 	
 	private List<GameObject> _levelCircleVOList;
+	private Dictionary<string, GameObject> _states;
+	private TweenFactory _tweenFactory;
 
 
 	/**
 	 * System
 	 */
 
-	private TweenFactory _tweenFactory;
-	
+	public Dictionary<string, GameObject> states
+	{
+		get 
+	    { 
+	        if( _states == null )
+	        {
+	        	_states = new Dictionary<string, GameObject>();
+
+	        	for( int i = 0; i < stateList.Length; ++i )
+	        	{
+	        	    StateVO stateVO = stateList[ i ];
+	        	    _states[ stateVO.name ] = stateVO.gameObject;
+	        	}
+	        }
+
+	        return _states; 
+	    }
+	}
+
 	public TweenFactory tweenFactory
 	{
 		get 
@@ -61,24 +91,6 @@ public class Proxy : GameObjectProxy
 	/**
 	 * Game
 	 */
-
-	// public LevelVO levelVO
-	// {
-	// 	get 
-	//     { 
-	//         if( _levelVO == null )
-	//         {
-
-	//         }
-
-	//         return _levelVO;
-	//     }
-
-	//     set
-	//     {
-	//     	_levelVO = value;
-	//     }
-	// }
 
 	public LevelVO GetLevelVO()
 	{

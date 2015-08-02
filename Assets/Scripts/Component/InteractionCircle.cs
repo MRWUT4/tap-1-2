@@ -9,7 +9,6 @@ public class InteractionCircle : MonoBehaviour
     private State state;
     private Proxy proxy;
     private LevelVO levelVO;
-    private List<NotationVO> selectionList;
     private DoTween doTween;
     private TweenFactory tweenFactory;
     private List<CircleVO> circleVOList;
@@ -101,7 +100,6 @@ public class InteractionCircle : MonoBehaviour
         state = gameObject.GetComponent<StateInfo>().state;
         proxy = state.proxy as Proxy;
         levelVO = proxy.levelVO;
-        selectionList = new List<NotationVO>();
         tweenFactory = proxy.tweenFactory;
         circleVOList = levelVO.circleVOList;
     }

@@ -4,6 +4,7 @@ public class GameState : GameObjectState
 {
 	public GameState(GameObject gameObject, Proxy proxy) : base(gameObject, proxy){}
 
+
 	/**
 	 * Public interface.
 	 */
@@ -17,6 +18,7 @@ public class GameState : GameObjectState
 	public override void Exit()
 	{
 		destroyComponents();
+		destroyChildren();
 	}
 
 
