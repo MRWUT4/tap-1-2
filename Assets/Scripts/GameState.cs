@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GameState : GameObjectState
 {
-	public GameState(GameObject gameObject, Proxy proxy) : base(gameObject, proxy){}
+	public GameState(string id, Proxy proxy) : base(id, proxy){}
 
 
 	/**
@@ -17,8 +17,7 @@ public class GameState : GameObjectState
 
 	public override void Exit()
 	{
-		destroyComponents();
-		destroyChildren();
+		GameObject.Destroy( gameObject );
 	}
 
 
@@ -26,18 +25,12 @@ public class GameState : GameObjectState
 	 * Private interface.
 	 */
 
-	/** Add GameObject to parent. */
-	private void initGameObject()
-	{
-		gameObject.transform.SetParent( (proxy as Proxy).Container.transform );
-	}
-
-
 	/** Add GameState modules. */
 	private void initComponents()
 	{
 		gameObject.AddComponent<ClearLevel>();
 		gameObject.AddComponent<SetupCircle>();
+		gameObject.AddComponent<TweenCircle>();
 		gameObject.AddComponent<GravitateCircle>();
 		gameObject.AddComponent<InteractionCircle>();
 	}

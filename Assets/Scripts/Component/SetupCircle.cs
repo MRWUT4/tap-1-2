@@ -35,7 +35,7 @@ public class SetupCircle : MonoBehaviour
         doTween = new DoTween();
         state = gameObject.GetComponent<StateInfo>().state;
         proxy = state.proxy as Proxy;
-        tweenFactory = proxy.tweenFactory;
+        // tweenFactory = proxy.tweenFactory;
         levelVO = proxy.levelVO;
     }
 
@@ -49,28 +49,28 @@ public class SetupCircle : MonoBehaviour
             circleVO.index = i;
 
             setupCircleText( circleVO );
-            animateGameObject( circleVO);
+            // animateGameObject( circleVO);
         }
     }
 
 
     /** Init intro animation. */
-    private void animateGameObject(CircleVO circleVO)
-    {
-        float i = (float)circleVO.index;
-        GameObject gameObject = circleVO.gameObject;
+    // private void animateGameObject(CircleVO circleVO)
+    // {
+    //     float i = (float)circleVO.index;
+    //     GameObject gameObject = circleVO.gameObject;
         
-        Mutate mutate = gameObject.GetComponent<Mutate>();
+    //     Mutate mutate = gameObject.GetComponent<Mutate>();
         
-        mutate.y = i * .1f + Random.Range( -.5f, .5f );
-        mutate.x = i * .1f + Random.Range( -.5f, .5f );
-        mutate.scaleX = mutate.scaleY = 0;
-        mutate.alpha = 0;
+    //     mutate.y = i * .1f + Random.Range( -.5f, .5f );
+    //     mutate.x = i * .1f + Random.Range( -.5f, .5f );
+    //     mutate.scaleX = mutate.scaleY = 0;
+    //     mutate.alpha = 0;
 
 
-        float scale = Random.Range( levelVO.minScale, levelVO.maxScale );
-        doTween.Add( tweenFactory.AlphaScaleShowBounceInOut( mutate, scale, i ) );
-    }
+    //     float scale = Random.Range( levelVO.minScale, levelVO.maxScale );
+    //     doTween.Add( tweenFactory.AlphaScaleShowBounceInOut( mutate, scale, i ) );
+    // }
 
 
     /** Setup Number values. */

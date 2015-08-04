@@ -38,12 +38,6 @@ public class GravitateCircle : MonoBehaviour
     /** Gravitation functions. */
     private void updateCircleVOForce()
     {
-        // for( int i = 0; i < levelVO.circleVOList.Count; ++i )
-        // {
-        //     CircleVO circleVO = levelVO.circleVOList[ i ];
-        //     gravitateToCenter( circleVO.gameObject );
-        // }
-
         foreach( Transform child in transform )
             gravitateToCenter( child.gameObject );
     }

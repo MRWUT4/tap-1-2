@@ -143,6 +143,7 @@ public class InteractionCircle : MonoBehaviour
         if( selectionIsComplete )
         {
             // TODO: next level 
+            
             Tween tween = tweenCircleOut( circleVO );
             addTweenCompleteHandler( tween );
         }
@@ -150,14 +151,12 @@ public class InteractionCircle : MonoBehaviour
         if( selectionIsSmallest )
         {
             circleVO.active = false;
-            // selectionList.Add( notationVO );
             tweenCircleOut( circleVO );
         }
         else
         {
             initCircleInteraction( false );
-            Debug.Log( "game over" );
-            // TODO: game over
+            state.InvokeExit( GAMEOVER );
         }
 
     }

@@ -7,7 +7,8 @@ using UnityEngine;
 
 public class Names
 {
-	public const string GameState = "GameState";
+	public const string Game = "Game";
+	public const string Result = "Result";
 }
 
 public class LevelVO
@@ -33,16 +34,6 @@ public class CircleVO
 [Serializable]
 public class Proxy : GameObjectProxy
 {
-	[Serializable]
-	public struct StateVO 
-	{
-		public string name;
-		public GameObject gameObject;
-	}
-
-	public StateVO[] stateList;
-
-
 	public GameObject circlePrefab;
 	public delegate NotationVO NotationDelegate(int level, int index, float seed);
 	
@@ -50,33 +41,12 @@ public class Proxy : GameObjectProxy
 	public int numCircles = 3;
 	public LevelVO levelVO;
 	
-	private List<GameObject> _levelCircleVOList;
-	private Dictionary<string, GameObject> _states;
 	private TweenFactory _tweenFactory;
 
 
 	/**
 	 * System
 	 */
-
-	public Dictionary<string, GameObject> states
-	{
-		get 
-	    { 
-	        if( _states == null )
-	        {
-	        	_states = new Dictionary<string, GameObject>();
-
-	        	for( int i = 0; i < stateList.Length; ++i )
-	        	{
-	        	    StateVO stateVO = stateList[ i ];
-	        	    _states[ stateVO.name ] = stateVO.gameObject;
-	        	}
-	        }
-
-	        return _states; 
-	    }
-	}
 
 	public TweenFactory tweenFactory
 	{

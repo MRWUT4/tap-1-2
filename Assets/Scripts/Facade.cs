@@ -19,20 +19,13 @@ public class Facade : MonoBehaviour
 
 	void Start() 
 	{
-		initVariables();
+		// initVariables();
 		initStateMachine();
 	}
 
 	void FixedUpdate() 
 	{
 		stateMachine.FixedUpdate();
-	}
-
-
-	/** Variables. */
-	private void initVariables()
-	{
-		states = proxy.states;
 	}
 
 
@@ -43,23 +36,25 @@ public class Facade : MonoBehaviour
 		
 		stateMachine.OnExit += stateMachineOnExitHandler;
 
-		stateMachine.AddState( Names.GameState, new GameState( states[ "Game" ], proxy ) );
-		stateMachine.SetState( Names.GameState );
+		stateMachine.AddState( Names.Game, new GameState( Names.Game, proxy ) );
+		stateMachine.AddState( Names.Result, new ResultState( Names.Result, proxy ) );
+		stateMachine.SetState( Names.Game );
 	}
 
 	private void stateMachineOnExitHandler(State state, string message)
 	{
 		switch( state.id )
 		{
-			case Names.GameState:
+			case Names.Game:
 			
 				switch( message )
 				{
 					case InteractionCircle.CONTINUE:
-						stateMachine.SetState( Names.GameState );
+						stateMachine.SetState( Names.Game );
 						break;
 
 					case InteractionCircle.GAMEOVER:
+						stateMachine.SetState( Names.Result );
 						break;
 				}
 
