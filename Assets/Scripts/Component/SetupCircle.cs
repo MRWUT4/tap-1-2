@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class SetupCircle : MonoBehaviour
 {
-    private State state;
+    // private State state;
+    private Setup setup;
     private Proxy proxy;
     private LevelVO levelVO;
     private TweenFactory tweenFactory;
@@ -13,7 +14,7 @@ public class SetupCircle : MonoBehaviour
      * Component interface.
      */
 
-    public void Awake()
+    public void Start()
     {
         initVariables();
         initGameObjectCopys();
@@ -33,8 +34,11 @@ public class SetupCircle : MonoBehaviour
     private void initVariables()
     {
         doTween = new DoTween();
-        state = gameObject.GetComponent<StateInfo>().state;
-        proxy = state.proxy as Proxy;
+        // state = gameObject.GetComponent<StateInfo>().state;
+        // proxy = state.proxy as Proxy;
+		setup = gameObject.GetComponent<Setup>();
+        proxy = setup.proxy;
+
         // tweenFactory = proxy.tweenFactory;
         levelVO = proxy.levelVO;
     }

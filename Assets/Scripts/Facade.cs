@@ -1,31 +1,51 @@
 ﻿using System.Collections.Generic;
-using System.Collections;
-using System.Linq;
-using System;
 using UnityEngine;
 
-public class Facade : MonoBehaviour
-{
-	public Proxy proxy = new Proxy();
 
-	private StateMachine stateMachine;
-	private Names names;
-	private Dictionary<string, GameObject> states;
+/**
+ * SceneState
+ */
+
+public class SceneState : State
+{
+	public SceneState(object proxy) : base(proxy){}
 
 
 	/**
 	 * Public interface.
 	 */
 
-	void Start() 
+	override public void Enter()
 	{
-		// initVariables();
+		Application.LoadLevel( this.id );
+	}
+}
+
+
+
+/**
+ * Facade
+ */
+
+public class Facade : ScriptableObject
+{
+	public Proxy proxy = new Proxy();
+	public StateMachine stateMachine;
+
+	private Dictionary<string, StateVO> states;
+
+
+	public Facade()
+	{
 		initStateMachine();
+		initProxy();
 	}
 
-	void FixedUpdate() 
+
+	/** Proxy setup. */
+	private void initProxy()
 	{
-		stateMachine.FixedUpdate();
+		proxy.stateMachine = stateMachine;	
 	}
 
 
@@ -36,9 +56,10 @@ public class Facade : MonoBehaviour
 		
 		stateMachine.OnExit += stateMachineOnExitHandler;
 
-		stateMachine.AddState( Names.Game, new GameState( Names.Game, proxy ) );
-		stateMachine.AddState( Names.Result, new ResultState( Names.Result, proxy ) );
-		stateMachine.SetState( Names.Game );
+		stateMachine.AddState( Names.Game, new SceneState( Names.Game ) );
+		stateMachine.AddState( Names.Result, new SceneState( Names.Result ) );
+
+		stateMachine.currentState = stateMachine.GetState( Application.loadedLevelName );
 	}
 
 	private void stateMachineOnExitHandler(State state, string message)

@@ -6,12 +6,14 @@ public class InteractionCircle : MonoBehaviour
     public const string CONTINUE = "CONTINUE";
     public const string GAMEOVER = "GAMEOVER";
 
-    private State state;
+    // private State state;
+    private Setup setup;
     private Proxy proxy;
     private LevelVO levelVO;
     private DoTween doTween;
     private TweenFactory tweenFactory;
     private List<CircleVO> circleVOList;
+    private State state;
 
 
     /**
@@ -77,7 +79,7 @@ public class InteractionCircle : MonoBehaviour
      * Component interface.
      */
 
-    public void Awake()
+    public void Start()
     {
         initVariables();
         initCircleInteraction();
@@ -97,8 +99,11 @@ public class InteractionCircle : MonoBehaviour
     private void initVariables()
     {
         doTween = new DoTween();
-        state = gameObject.GetComponent<StateInfo>().state;
-        proxy = state.proxy as Proxy;
+        // state = gameObject.GetComponent<StateInfo>().state;
+        // proxy = state.proxy as Proxy;
+        setup = gameObject.GetComponent<Setup>();
+        state = setup.state;
+        proxy = setup.proxy;
         levelVO = proxy.levelVO;
         tweenFactory = proxy.tweenFactory;
         circleVOList = levelVO.circleVOList;
@@ -157,6 +162,7 @@ public class InteractionCircle : MonoBehaviour
         {
             initCircleInteraction( false );
             state.InvokeExit( GAMEOVER );
+            // state.InvokeExit( GAMEOVER );
         }
 
     }
@@ -171,6 +177,8 @@ public class InteractionCircle : MonoBehaviour
     private void tweenOnCompleteHandler(Tween tween)
     {
         state.InvokeExit( CONTINUE );
+    	// Application.LoadLevel( "Game" );
+        // state.InvokeExit( CONTINUE );
     }
 
 

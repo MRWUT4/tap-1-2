@@ -2,16 +2,20 @@ using UnityEngine;
 
 public class GravitateCircle : MonoBehaviour
 {
-    private State state;
+    // private State state;
+    // private Proxy proxy;
+    // private LevelVO levelVO;
+    public float force = .2f;
+
     private Proxy proxy;
-    private LevelVO levelVO;
+    private Setup setup;
 
 
     /**
      * Component interface.
      */
 
-    public void Awake()
+    public void Start()
     {
         initVariables();
     }
@@ -29,10 +33,12 @@ public class GravitateCircle : MonoBehaviour
     /** Create Module Variables. */
     private void initVariables()
     {
-        state = gameObject.GetComponent<StateInfo>().state;
-        proxy = state.proxy as Proxy;
-    
-    	levelVO = proxy.levelVO;    
+        // setup = gameObject.GetComponent<Setup>();
+        // proxy = setup.proxy;
+        // state = gameObject.GetComponent<StateInfo>().state;
+        // proxy = state.proxy as Proxy;
+     //    proxy = Proxy.instance;
+    	// levelVO = proxy.levelVO;    
     }
 
     /** Gravitation functions. */
@@ -51,7 +57,7 @@ public class GravitateCircle : MonoBehaviour
 
         if( rigidbody )
         {
-            Vector3 forceVector3 = -direction.direction * levelVO.force * dist;
+            Vector3 forceVector3 = -direction.direction * force * dist;
             rigidbody.AddForce( forceVector3 );
         }
      }

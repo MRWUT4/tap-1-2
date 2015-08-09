@@ -5,11 +5,20 @@ using System;
 using UnityEngine;
 
 
+/**
+ * Names
+ */
+
 public class Names
 {
 	public const string Game = "Game";
 	public const string Result = "Result";
 }
+
+
+/**
+ * LevelVO
+ */
 
 public class LevelVO
 {
@@ -19,6 +28,10 @@ public class LevelVO
 
 	public List<CircleVO> circleVOList = new List<CircleVO>();
 }
+
+/**
+ * CircleVO
+ */
 
 public class CircleVO
 {
@@ -30,13 +43,27 @@ public class CircleVO
 }
 
 
+/**
+ * StateVO
+ */
 
 [Serializable]
-public class Proxy : GameObjectProxy
+public struct StateVO 
 {
-	public GameObject circlePrefab;
+	public string name;
+}
+
+
+/**
+ * Proxy
+ */
+
+[Serializable]
+public class Proxy
+{
 	public delegate NotationVO NotationDelegate(int level, int index, float seed);
-	
+	public GameObject circlePrefab;
+	public StateMachine stateMachine;
 	public int level = 0;
 	public int numCircles = 3;
 	public LevelVO levelVO;

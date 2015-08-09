@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class ClearLevel : MonoBehaviour
 {
-    private State state;
+    private Setup setup;
     private Proxy proxy;
+    // private State state;
     // private LevelVO levelVO;
 
 
@@ -11,7 +12,7 @@ public class ClearLevel : MonoBehaviour
      * Component interface.
      */
 
-    public void Awake()
+    public void Start()
     {
         initVariables();
         initLevelVO();
@@ -25,9 +26,12 @@ public class ClearLevel : MonoBehaviour
     /** Create Module Variables. */
     private void initVariables()
     {
-        state = gameObject.GetComponent<StateInfo>().state;
-        proxy = state.proxy as Proxy;
+        // state = gameObject.GetComponent<StateInfo>().state;
+        // proxy = state.proxy as Proxy;
         // levelVO = proxy.levelVO;
+        // proxy = Proxy.instance;
+        setup = gameObject.GetComponent<Setup>();
+        proxy = setup.proxy;
     }
 
 

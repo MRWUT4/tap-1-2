@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class TweenCircle : MonoBehaviour
 {
-    private State state;
+    // private State state;
+    private Setup setup;
     private Proxy proxy;
     private int index;
     private LevelVO levelVO;
@@ -35,8 +36,10 @@ public class TweenCircle : MonoBehaviour
     {
     	doTween = new DoTween();
 
-        state = gameObject.GetComponent<StateInfo>().state;
-        proxy = state.proxy as Proxy;
+        // state = gameObject.GetComponent<StateInfo>().state;
+        // proxy = state.proxy as Proxy;
+		setup = gameObject.GetComponent<Setup>();
+        proxy = setup.proxy;
         levelVO = proxy.levelVO;
         tweenFactory = proxy.tweenFactory;
         index = 0;
