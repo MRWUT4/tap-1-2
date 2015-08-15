@@ -72,7 +72,7 @@ public class TweenCircle : MonoBehaviour
         for( int i = 0; i < list.Length; ++i )
         {
             Mutate mutate = list[ i ];
-            tween = tweenFactory.AlphaScaleShowBounceInOut( mutate, 0, i );
+            tween = tweenFactory.AlphaScaleBackOut( mutate, i );
 
             doTween.Add( tween );
         }

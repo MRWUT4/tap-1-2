@@ -12,6 +12,18 @@ public class TweenFactory
         });
 	}
 
+    public Tween AlphaScaleBackOut(Mutate mutate, int index )
+    {
+        return new DoTween().To( mutate, .6f, new
+        {
+            delay = index * .1,
+            alpha = 0,
+            scaleX = 0,
+            scaleY = 0,
+            ease = "Back.EaseIn"
+        });
+    }
+
     public Tween AlphaScaleHideBounceInOut(Mutate mutate)
     {
         return new DoTween().To( mutate, .6f, new

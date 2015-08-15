@@ -31,19 +31,6 @@ public class LevelVO
 	public List<CircleVO> circleVOList = new List<CircleVO>();
 }
 
-/**
- * CircleVO
- */
-
-public class CircleVO
-{
-	public GameObject gameObject;
-	public NotationVO notationVO;
-	public int index;
-	public int level;
-	public bool active = true;
-}
-
 
 /**
  * StateVO
@@ -63,7 +50,6 @@ public struct StateVO
 [Serializable]
 public class Proxy
 {
-	public delegate NotationVO NotationDelegate(int level, int index, float seed);
 	public GameObject circlePrefab;
 	public StateMachine stateMachine;
 	public int level = 0;
@@ -71,7 +57,7 @@ public class Proxy
 	public LevelVO levelVO;
 	
 	private TweenFactory _tweenFactory;
-
+	private CircleVOFactory _circleVOFactory;
 
 	/**
 	 * System
@@ -83,6 +69,15 @@ public class Proxy
 	    { 
 	        _tweenFactory = _tweenFactory != null ? _tweenFactory : new TweenFactory();
 	        return _tweenFactory; 
+	    }
+	}
+	
+	public CircleVOFactory circleVOFactory
+	{
+		get 
+	    { 
+	        _circleVOFactory = _circleVOFactory != null ? _circleVOFactory : new CircleVOFactory();
+	        return _circleVOFactory; 
 	    }
 	}
 
@@ -103,46 +98,10 @@ public class Proxy
 	{
 		get 
 	    { 
-    		float seed = UnityEngine.Random.value;
-
-	    	List<CircleVO> list = new List<CircleVO>();
-
-	    	for( int i = 0; i < numCircles; ++i )
-	    	{
-	    		CircleVO circleVO = new CircleVO();
-	    		
-	    		circleVO.level = level;
-	    		circleVO.gameObject = Assist.GetGameObjectClone( circlePrefab );
-	    		circleVO.notationVO = levelNotationDelegate( level, i, seed );
-
-	    	    list.Add( circleVO );
-	    	}
+	    	List<CircleVO> list = circleVOFactory.getList( level, numCircles, circlePrefab );
 
 	        return list;
 	    }
 	}
 
-
-	public NotationDelegate levelNotationDelegate
-	{
-		get 
-	    { 
-	    	int index = (int)Mathf.Floor( UnityEngine.Random.value * (float)NotationDelegateList.Count );
-	        NotationDelegate notationDelegate = NotationDelegateList[ index ];
-
-	        return notationDelegate; 
-	    }
-	}
-
-
-	public List<NotationDelegate> NotationDelegateList
-	{	
-		get 
-	    { 	
-	        return new List<NotationDelegate>
-	        {
-	        	Notation.addition
-	        }; 
-	    }
-	}
 }
