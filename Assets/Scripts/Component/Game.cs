@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class InteractionCircle : MonoBehaviour
+public class Game : MonoBehaviour
 {
     public const string CONTINUE = "CONTINUE";
     public const string GAMEOVER = "GAMEOVER";
@@ -12,6 +12,7 @@ public class InteractionCircle : MonoBehaviour
     private LevelVO levelVO;
     private DoTween doTween;
     private TweenFactory tweenFactory;
+    private TweenCircle tweenCircle;
     private List<CircleVO> circleVOList;
     private State state;
 
@@ -102,6 +103,7 @@ public class InteractionCircle : MonoBehaviour
         // state = gameObject.GetComponent<StateInfo>().state;
         // proxy = state.proxy as Proxy;
         setup = gameObject.GetComponent<Setup>();
+        tweenCircle = gameObject.GetComponent<TweenCircle>();
         state = setup.state;
         proxy = setup.proxy;
         levelVO = proxy.levelVO;
@@ -159,12 +161,7 @@ public class InteractionCircle : MonoBehaviour
             tweenCircleOut( circleVO );
         }
         else
-        {
-            initCircleInteraction( false );
-            state.InvokeExit( GAMEOVER );
-            // state.InvokeExit( GAMEOVER );
-        }
-
+            gameOverHandler();
     }
 
 
@@ -179,6 +176,21 @@ public class InteractionCircle : MonoBehaviour
         state.InvokeExit( CONTINUE );
     	// Application.LoadLevel( "Game" );
         // state.InvokeExit( CONTINUE );
+    }
+
+
+    /** Game Over. */
+    private void gameOverHandler()
+    {
+        initCircleInteraction( false );
+        
+        Tween tween = tweenCircle.AllOut();
+        tween.OnComplete += tweenCircleAllOutCompleteHandler;
+    }
+
+    private void tweenCircleAllOutCompleteHandler(Tween tween)
+    {
+        state.InvokeExit( GAMEOVER );
     }
 
 

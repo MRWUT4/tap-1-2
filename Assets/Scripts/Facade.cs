@@ -41,6 +41,11 @@ public class Facade : ScriptableObject
 		initProxy();
 	}
 
+	public void Awake()
+	{
+		Debug.Log( "Start" );
+	}
+
 
 	/** Proxy setup. */
 	private void initProxy()
@@ -59,7 +64,7 @@ public class Facade : ScriptableObject
 		stateMachine.AddState( Names.Game, new SceneState( Names.Game ) );
 		stateMachine.AddState( Names.Result, new SceneState( Names.Result ) );
 
-		stateMachine.currentState = stateMachine.GetState( Application.loadedLevelName );
+		stateMachine.currentState = stateMachine.GetState( Names.Game );
 	}
 
 	private void stateMachineOnExitHandler(State state, string message)
@@ -70,15 +75,19 @@ public class Facade : ScriptableObject
 			
 				switch( message )
 				{
-					case InteractionCircle.CONTINUE:
+					case Game.CONTINUE:
 						stateMachine.SetState( Names.Game );
 						break;
 
-					case InteractionCircle.GAMEOVER:
+					case Game.GAMEOVER:
 						stateMachine.SetState( Names.Result );
 						break;
 				}
 
+				break;
+
+			case Names.Result:
+				stateMachine.SetState( Names.Game );
 				break;
 		}
 	}

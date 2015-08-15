@@ -13,6 +13,8 @@ public class Names
 {
 	public const string Game = "Game";
 	public const string Result = "Result";
+
+	public const string ButtonPlay = "ButtonPlay";
 }
 
 

@@ -5,7 +5,7 @@ public class TweenCircle : MonoBehaviour
     // private State state;
     private Setup setup;
     private Proxy proxy;
-    private int index;
+    private int i;
     private LevelVO levelVO;
     private DoTween doTween;
     private TweenFactory tweenFactory;
@@ -28,6 +28,60 @@ public class TweenCircle : MonoBehaviour
 
 
     /**
+     * Public interface.
+     */
+
+    public Tween AllIn()
+    {
+        Mutate[] list = gameObject.GetComponentsInChildren<Mutate>();
+        Tween tween = null;
+
+        for( int i = 0; i < list.Length; ++i )
+        {
+            Mutate mutate = list[ i ];
+
+            float startScale = mutate.scaleX;
+
+            mutate.y = i * .1f + Random.Range( -.5f, .5f );
+            mutate.x = i * .1f + Random.Range( -.5f, .5f );
+            mutate.scaleX = mutate.scaleY = 0;
+            mutate.alpha = 0;
+
+            if( levelVO != null )
+            {
+                float scale = Random.Range( levelVO.minScale, levelVO.maxScale );
+                tween = tweenFactory.AlphaScaleShowBounceInOut( mutate, scale, i );
+
+                doTween.Add( tween );
+            }
+            else
+            {
+                tween = tweenFactory.AlphaScaleShowBounceInOut( mutate, startScale, i );
+                doTween.Add( tween );
+            }
+        }
+
+        return tween;
+    }
+
+    public Tween AllOut()
+    {
+        Mutate[] list = gameObject.GetComponentsInChildren<Mutate>();
+        Tween tween = null;
+
+        for( int i = 0; i < list.Length; ++i )
+        {
+            Mutate mutate = list[ i ];
+            tween = tweenFactory.AlphaScaleShowBounceInOut( mutate, 0, i );
+
+            doTween.Add( tween );
+        }
+
+        return tween;
+    }
+
+
+    /**
      * Private interface.
      */
 
@@ -42,36 +96,21 @@ public class TweenCircle : MonoBehaviour
         proxy = setup.proxy;
         levelVO = proxy.levelVO;
         tweenFactory = proxy.tweenFactory;
-        index = 0;
+        i = 0;
     }
 
 
     /** Init intro tween. */
     private void initIntroTween()
     {
-        foreach( Transform child in transform )
-            tweenCircleVOIn( child.gameObject );
+        AllIn();
     }
 
 
-	/** Init intro animation. */
-    private void tweenCircleVOIn(GameObject gameObject)
+    private void tweenCircleOut(Mutate mutate, int i)
     {
-        // float i = (float)circleVO.index;
-        // GameObject gameObject = circleVO.gameObject;
+        // Mutate mutate = gameObject.GetComponent<Mutate>();
         
-        Mutate mutate = gameObject.GetComponent<Mutate>();
-        
-        mutate.y = index * .1f + Random.Range( -.5f, .5f );
-        mutate.x = index * .1f + Random.Range( -.5f, .5f );
-        mutate.scaleX = mutate.scaleY = 0;
-        mutate.alpha = 0;
 
-
-        float scale = Random.Range( levelVO.minScale, levelVO.maxScale );
-        doTween.Add( tweenFactory.AlphaScaleShowBounceInOut( mutate, scale, index ) );
-
-
-        index++;
     }
 }
