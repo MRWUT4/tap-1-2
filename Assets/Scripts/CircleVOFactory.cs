@@ -20,11 +20,13 @@ public class CircleVOFactory
 {
 	public delegate NotationVO NotationDelegate(int level, int index, float seed);
 
-	public CircleVOFactory()
-	{
-		
-	}
 
+	public CircleVOFactory(){}
+
+
+	/**
+	 * Public interface.
+	 */
 
 	public List<CircleVO> getList(int level, int numCircles, GameObject prefab)
 	{
@@ -32,15 +34,21 @@ public class CircleVOFactory
 
     	List<CircleVO> list = new List<CircleVO>();
 
-    	Debug.Log( numCircles );
-
     	for( int i = 0; i < numCircles; ++i )
     	{
     		CircleVO circleVO = new CircleVO();
-    		
+
+    		NotationVO notationVO = null;
+
+    		do
+    		{
+      			notationVO = levelNotationDelegate( level, i, seed );  		
+      		}
+    		while( notationValueIsInList( notationVO, list ) );
+
     		circleVO.level = level;
     		circleVO.gameObject = Assist.GetGameObjectClone( prefab );
-    		circleVO.notationVO = levelNotationDelegate( level, i, seed );
+    		circleVO.notationVO = notationVO;
 
     	    list.Add( circleVO );
     	}
@@ -56,6 +64,7 @@ public class CircleVOFactory
 	    	float count = (float)NotationDelegateList.Count;
 	    	float random = UnityEngine.Random.value;
 	    	
+	    	// Fix: Argument is out of range. index.
 	    	int index = (int)Mathf.Floor( random * count );
 	        NotationDelegate notationDelegate = NotationDelegateList[ index ];
 
@@ -73,5 +82,27 @@ public class CircleVOFactory
 	        	Notation.addition
 	        }; 
 	    }
+	}
+
+
+	/**
+	 * Private interface.
+	 */
+
+	private bool notationValueIsInList(NotationVO notationVO, List<CircleVO> list)
+	{
+		if( notationVO != null )
+		{
+			for( int i = 0; i < list.Count; ++i )
+			{
+			    CircleVO circleVO = list[ i ];
+				NotationVO compareVO = circleVO.notationVO;
+
+				if( compareVO.text == notationVO.text )
+					return true; 
+			}
+		}	
+
+		return false;
 	}
 }
