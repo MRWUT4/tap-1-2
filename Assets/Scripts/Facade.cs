@@ -29,7 +29,7 @@ public class SceneState : State
 
 public class Facade : ScriptableObject
 {
-	public Proxy proxy = new Proxy();
+	public Proxy proxy;
 	public StateMachine stateMachine;
 
 	private Dictionary<string, StateVO> states;
@@ -37,18 +37,17 @@ public class Facade : ScriptableObject
 
 	public Facade()
 	{
-		initStateMachine();
 		initProxy();
+		initStateMachine();
 	}
 
-	public void Awake()
-	{
-	}
+	public void Awake(){}
 
 
 	/** Proxy setup. */
 	private void initProxy()
 	{
+		proxy = new Proxy();
 		proxy.stateMachine = stateMachine;	
 	}
 

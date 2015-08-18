@@ -83,6 +83,7 @@ public class Game : MonoBehaviour
     public void Start()
     {
         initVariables();
+        initProxyLevel();
         initCircleInteraction();
     }
 
@@ -109,6 +110,13 @@ public class Game : MonoBehaviour
         levelVO = proxy.levelVO;
         tweenFactory = proxy.tweenFactory;
         circleVOList = levelVO.circleVOList;
+    }
+
+
+    /** Init proxy level. */
+    private void initProxyLevel()
+    {
+        proxy.level++;
     }
 
 

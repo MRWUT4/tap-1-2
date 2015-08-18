@@ -2,19 +2,22 @@ using UnityEngine;
 
 public class Notation
 {
-	public static NotationVO addition(int level, int index, float seed)
+	public static NotationVO positive(int level, int index, float seed)
 	{
 		NotationVO notationVO = new NotationVO();
 
-		float m = Random.value > .5 ? -1 : 1;
-		float a = m * ( seed * 30 * ( index + 1 ) ) % 99;
-
+		float a = seed * 30 * ( index + 1 ) % 99;
 		string aString = ( (int)a ).ToString();
 
 		notationVO.value = a;
 		notationVO.text = aString;
 
 		return notationVO;
+	}
+
+	public static NotationVO negative(int level, int index, float seed)
+	{
+		return Notation.positive( level, index, -1 * seed );
 	}
 }
 

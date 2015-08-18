@@ -5,7 +5,7 @@ public class TweenCircle : MonoBehaviour
     // private State state;
     private Setup setup;
     private Proxy proxy;
-    private int i;
+    // private int i;
     private LevelVO levelVO;
     private DoTween doTween;
     private TweenFactory tweenFactory;
@@ -96,7 +96,6 @@ public class TweenCircle : MonoBehaviour
         proxy = setup.proxy;
         levelVO = proxy.levelVO;
         tweenFactory = proxy.tweenFactory;
-        i = 0;
     }
 
 

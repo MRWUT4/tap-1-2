@@ -19,7 +19,7 @@ public class CircleVO
 public class CircleVOFactory
 {
 	public delegate NotationVO NotationDelegate(int level, int index, float seed);
-
+	public int level = 0;
 
 	public CircleVOFactory(){}
 
@@ -30,8 +30,7 @@ public class CircleVOFactory
 
 	public List<CircleVO> getList(int level, int numCircles, GameObject prefab)
 	{
-		float seed = UnityEngine.Random.value;
-
+		this.level = level;
     	List<CircleVO> list = new List<CircleVO>();
 
     	for( int i = 0; i < numCircles; ++i )
@@ -42,6 +41,7 @@ public class CircleVOFactory
 
     		do
     		{
+				float seed = UnityEngine.Random.value;
       			notationVO = levelNotationDelegate( level, i, seed );  		
       		}
     		while( notationValueIsInList( notationVO, list ) );
@@ -61,11 +61,14 @@ public class CircleVOFactory
 	{
 		get 
 	    { 
+	    	float numLevels = 10;
+	    	float currentLevel = Mathf.Min( level, numLevels );
+
 	    	float count = (float)NotationDelegateList.Count;
+	    	float range = Linear.EaseNone( currentLevel, 0, count, numLevels);
 	    	float random = UnityEngine.Random.value;
-	    	
-	    	// Fix: Argument is out of range. index.
-	    	int index = (int)Mathf.Floor( random * count );
+	    
+	    	int index = (int)Mathf.Floor( random * range );
 	        NotationDelegate notationDelegate = NotationDelegateList[ index ];
 
 	        return notationDelegate; 
@@ -79,7 +82,8 @@ public class CircleVOFactory
 	    { 	
 	        return new List<NotationDelegate>
 	        {
-	        	Notation.addition
+	        	Notation.positive,
+	        	Notation.negative
 	        }; 
 	    }
 	}

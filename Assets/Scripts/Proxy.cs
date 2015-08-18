@@ -51,13 +51,31 @@ public struct StateVO
 public class Proxy
 {
 	public GameObject circlePrefab;
+
 	public StateMachine stateMachine;
+	
+	[NonSerialized]
 	public int level = 0;
+	
+	[NonSerialized]
 	public int numCircles = 3;
+	
 	public LevelVO levelVO;
 	
 	private TweenFactory _tweenFactory;
 	private CircleVOFactory _circleVOFactory;
+
+
+	public Proxy()
+	{
+		level = 0;
+		numCircles = 3;
+	}
+
+	public void Start()
+	{
+		Debug.Log( "Start" );
+	}
 
 	/**
 	 * System

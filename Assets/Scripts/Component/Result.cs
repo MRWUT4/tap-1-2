@@ -3,7 +3,7 @@ using UnityEngine;
 public class Result : MonoBehaviour
 {
     private Setup setup;
-    private Proxy proxy;
+    // private Proxy proxy;
     private State state;
     private TweenCircle tweenCircle;
 
@@ -28,7 +28,7 @@ public class Result : MonoBehaviour
     {
         setup = gameObject.GetComponent<Setup>();
     	tweenCircle = gameObject.GetComponent<TweenCircle>();
-        proxy = setup.proxy as Proxy;
+        // proxy = setup.proxy as Proxy;
         state = setup.state;
     }
 
