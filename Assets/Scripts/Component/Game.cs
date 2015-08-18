@@ -101,8 +101,6 @@ public class Game : MonoBehaviour
     private void initVariables()
     {
         doTween = new DoTween();
-        // state = gameObject.GetComponent<StateInfo>().state;
-        // proxy = state.proxy as Proxy;
         setup = gameObject.GetComponent<Setup>();
         tweenCircle = gameObject.GetComponent<TweenCircle>();
         state = setup.state;

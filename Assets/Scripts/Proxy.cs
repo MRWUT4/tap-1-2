@@ -51,17 +51,15 @@ public struct StateVO
 public class Proxy
 {
 	public GameObject circlePrefab;
-
 	public StateMachine stateMachine;
+	public LevelVO levelVO;
 	
 	[NonSerialized]
 	public int level = 0;
 	
-	[NonSerialized]
 	public int numCircles = 3;
-	
-	public LevelVO levelVO;
-	
+	public int numLevels = 10;
+
 	private TweenFactory _tweenFactory;
 	private CircleVOFactory _circleVOFactory;
 
@@ -72,10 +70,6 @@ public class Proxy
 		numCircles = 3;
 	}
 
-	public void Start()
-	{
-		Debug.Log( "Start" );
-	}
 
 	/**
 	 * System
@@ -116,7 +110,12 @@ public class Proxy
 	{
 		get 
 	    { 
-	    	List<CircleVO> list = circleVOFactory.getList( level, numCircles, circlePrefab );
+	    	circleVOFactory.level = level;
+	    	circleVOFactory.numCircles = numCircles;
+	    	circleVOFactory.circlePrefab = circlePrefab;
+	    	circleVOFactory.numLevels = numLevels;
+
+	    	List<CircleVO> list = circleVOFactory.getList();
 
 	        return list;
 	    }

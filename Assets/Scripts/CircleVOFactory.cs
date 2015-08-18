@@ -19,7 +19,11 @@ public class CircleVO
 public class CircleVOFactory
 {
 	public delegate NotationVO NotationDelegate(int level, int index, float seed);
+	
 	public int level = 0;
+	public int numCircles = 3;
+	public int numLevels = 10;
+	public GameObject circlePrefab;
 
 	public CircleVOFactory(){}
 
@@ -28,26 +32,24 @@ public class CircleVOFactory
 	 * Public interface.
 	 */
 
-	public List<CircleVO> getList(int level, int numCircles, GameObject prefab)
+	public List<CircleVO> getList()
 	{
-		this.level = level;
     	List<CircleVO> list = new List<CircleVO>();
 
     	for( int i = 0; i < numCircles; ++i )
     	{
     		CircleVO circleVO = new CircleVO();
-
     		NotationVO notationVO = null;
 
     		do
     		{
-				float seed = UnityEngine.Random.value;
+				float seed = Random.value;
       			notationVO = levelNotationDelegate( level, i, seed );  		
       		}
     		while( notationValueIsInList( notationVO, list ) );
 
     		circleVO.level = level;
-    		circleVO.gameObject = Assist.GetGameObjectClone( prefab );
+    		circleVO.gameObject = Assist.GetGameObjectClone( circlePrefab );
     		circleVO.notationVO = notationVO;
 
     	    list.Add( circleVO );
@@ -56,25 +58,20 @@ public class CircleVOFactory
     	return list;
 	}
 
-
 	public NotationDelegate levelNotationDelegate
 	{
 		get 
 	    { 
-	    	float numLevels = 10;
 	    	float currentLevel = Mathf.Min( level, numLevels );
-
 	    	float count = (float)NotationDelegateList.Count;
-	    	float range = Linear.EaseNone( currentLevel, 0, count, numLevels);
-	    	float random = UnityEngine.Random.value;
-	    
-	    	int index = (int)Mathf.Floor( random * range );
+	    	float range = Linear.EaseNone( currentLevel, 0, count, numLevels );
+	    	int index = (int)Mathf.Floor( Random.value * range );
+
 	        NotationDelegate notationDelegate = NotationDelegateList[ index ];
 
 	        return notationDelegate; 
 	    }
 	}
-
 
 	public List<NotationDelegate> NotationDelegateList
 	{	
@@ -83,7 +80,8 @@ public class CircleVOFactory
 	        return new List<NotationDelegate>
 	        {
 	        	Notation.positive,
-	        	Notation.negative
+	        	Notation.negative,
+	        	Notation.multiplication
 	        }; 
 	    }
 	}
