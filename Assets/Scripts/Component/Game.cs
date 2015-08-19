@@ -145,6 +145,7 @@ public class Game : MonoBehaviour
         validateCircleVO( circleVO );
     }
 
+
     /** Circle validation functions. */
     private void validateCircleVO(CircleVO circleVO)
     {

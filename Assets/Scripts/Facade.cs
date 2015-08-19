@@ -62,8 +62,8 @@ public class Facade : ScriptableObject
 		stateMachine.AddState( Names.Game, new SceneState( Names.Game ) );
 		stateMachine.AddState( Names.Result, new SceneState( Names.Result ) );
 
-		// stateMachine.currentState = stateMachine.GetState( Names.Game );
-		stateMachine.currentState = stateMachine.GetState( Application.loadedLevelName );
+		stateMachine.currentState = stateMachine.GetState( Names.Game );
+		// stateMachine.currentState = stateMachine.GetState( Application.loadedLevelName );
 	}
 
 	private void stateMachineOnExitHandler(State state, string message)
@@ -86,6 +86,7 @@ public class Facade : ScriptableObject
 				break;
 
 			case Names.Result:
+				proxy.Reset();
 				stateMachine.SetState( Names.Game );
 				break;
 		}

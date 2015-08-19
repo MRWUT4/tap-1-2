@@ -59,12 +59,16 @@ public class Proxy
 	
 	public int numCircles = 3;
 	public int numLevels = 10;
+	public int levelTime = 10;
 
 	private TweenFactory _tweenFactory;
 	private CircleVOFactory _circleVOFactory;
 
 
-	public Proxy()
+	public Proxy(){}
+
+
+	public void Reset()
 	{
 		level = 0;
 		numCircles = 3;
