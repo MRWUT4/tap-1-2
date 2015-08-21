@@ -100,7 +100,7 @@ public class Game : MonoBehaviour
     /** Create Module Variables. */
     private void initVariables()
     {
-        doTween = new DoTween();
+        doTween = new DoTween( true );
         setup = gameObject.GetComponent<Setup>();
         tweenCircle = gameObject.GetComponent<TweenCircle>();
         state = setup.state;

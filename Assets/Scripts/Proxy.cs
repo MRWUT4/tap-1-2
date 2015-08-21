@@ -59,8 +59,13 @@ public class Proxy
 	
 	public int numCircles = 3;
 	public int numLevels = 10;
-	public int levelTime = 10;
 
+	public float levelTime = 10;
+	public float minScale = .2f;
+	public float maxScale = .4f;
+	public float force = .2f;
+
+	private float _time = float.NaN; 
 	private TweenFactory _tweenFactory;
 	private CircleVOFactory _circleVOFactory;
 
@@ -101,10 +106,30 @@ public class Proxy
 	/**
 	 * Game
 	 */
+	
+	public float time
+	{
+		get 
+	    {
+	    	_time = !float.IsNaN( _time ) ? _time : levelTime;
+	    	_time = Mathf.Min( levelTime, Mathf.Max( 0, _time ) );
+
+	        return _time; 
+	    }
+	
+	    set
+	    { 
+	        _time = value; 
+	    }
+	}
 
 	public LevelVO GetLevelVO()
 	{
 	   	LevelVO vo = new LevelVO();
+
+	   	vo.minScale = minScale;
+	   	vo.maxScale = maxScale;
+	   	vo.force = force;
     	vo.circleVOList = levelCircleVOList;
 
     	return vo;

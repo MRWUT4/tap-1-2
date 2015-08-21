@@ -48,7 +48,9 @@ public class Facade : ScriptableObject
 	private void initProxy()
 	{
 		proxy = new Proxy();
-		proxy.stateMachine = stateMachine;	
+		proxy.stateMachine = stateMachine;
+
+		Application.targetFrameRate = 60;
 	}
 
 
@@ -62,8 +64,8 @@ public class Facade : ScriptableObject
 		stateMachine.AddState( Names.Game, new SceneState( Names.Game ) );
 		stateMachine.AddState( Names.Result, new SceneState( Names.Result ) );
 
-		stateMachine.currentState = stateMachine.GetState( Names.Game );
-		// stateMachine.currentState = stateMachine.GetState( Application.loadedLevelName );
+		// stateMachine.currentState = stateMachine.GetState( Names.Game );
+		stateMachine.currentState = stateMachine.GetState( Application.loadedLevelName );
 	}
 
 	private void stateMachineOnExitHandler(State state, string message)
