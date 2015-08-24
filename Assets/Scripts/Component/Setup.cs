@@ -1,14 +1,28 @@
 using UnityEngine;
 
 public class Setup : MonoBehaviour
-{
-	public Facade facade;
-    
-
+{    
 	/**
 	 * Getter / Setter
 	 */
-	 
+	
+    private Facade _facade;
+    
+    public Facade facade
+    {
+        get 
+        { 
+            if( _facade == null )
+            {
+                GameObject gameObject = GameObject.Find( "Facade" );
+                _facade = gameObject.GetComponent<Facade>();
+            }
+            
+            return _facade; 
+        }
+    }
+
+
     private Proxy _proxy;
     
     public Proxy proxy

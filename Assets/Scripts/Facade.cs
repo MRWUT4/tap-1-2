@@ -27,7 +27,7 @@ public class SceneState : State
  * Facade
  */
 
-public class Facade : ScriptableObject
+public class Facade : MonoBehaviour
 {
 	public Proxy proxy;
 	public StateMachine stateMachine;
@@ -35,22 +35,27 @@ public class Facade : ScriptableObject
 	private Dictionary<string, StateVO> states;
 
 
-	public Facade()
+	public Facade(){}
+
+	public void Awake()
 	{
+		initVariables();
 		initProxy();
 		initStateMachine();
 	}
 
-	public void Awake(){}
+
+	/** Variables */
+	private void initVariables()
+	{
+		Application.targetFrameRate = 60;
+	}
 
 
 	/** Proxy setup. */
 	private void initProxy()
 	{
-		proxy = new Proxy();
 		proxy.stateMachine = stateMachine;
-
-		Application.targetFrameRate = 60;
 	}
 
 
