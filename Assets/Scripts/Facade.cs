@@ -66,6 +66,7 @@ public class Facade : MonoBehaviour
 		
 		stateMachine.OnExit += stateMachineOnExitHandler;
 
+		stateMachine.AddState( Names.Menu, new SceneState( Names.Game ) );
 		stateMachine.AddState( Names.Game, new SceneState( Names.Game ) );
 		stateMachine.AddState( Names.Result, new SceneState( Names.Result ) );
 
@@ -77,6 +78,10 @@ public class Facade : MonoBehaviour
 	{
 		switch( state.id )
 		{
+			case Names.Menu:
+				stateMachine.SetState( Names.Game );
+				break;
+
 			case Names.Game:
 			
 				switch( message )
@@ -94,7 +99,7 @@ public class Facade : MonoBehaviour
 
 			case Names.Result:
 				proxy.Reset();
-				stateMachine.SetState( Names.Game );
+				stateMachine.SetState( Names.Menu );
 				break;
 		}
 	}

@@ -47,4 +47,17 @@ public class NotationVO
 {
 	public string text;
 	public float value;
+
+
+	/**
+	 * Getter / Setter.
+	 */
+	
+	public int compareValue
+	{
+		get 
+	    { 
+	        return (int)Mathf.Floor( value ); 
+	    }
+	}
 }

@@ -83,6 +83,6 @@ public class LevelProgress : MonoBehaviour
     /** Rest time handling. */
     private void changeProxyRestTime()
     {
-        proxy.time = proxy.time + frameTimer.currentTime;
+        proxy.time = frameTimer.currentTime * 2;
     }
 }	

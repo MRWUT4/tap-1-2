@@ -101,7 +101,7 @@ public class CircleVOFactory
 			    CircleVO circleVO = list[ i ];
 				NotationVO compareVO = circleVO.notationVO;
 
-				if( compareVO.text == notationVO.text )
+				if( compareVO.compareValue == notationVO.compareValue )
 					return true; 
 			}
 		}	

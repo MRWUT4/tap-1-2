@@ -158,7 +158,8 @@ public class Game : MonoBehaviour
         {
             // TODO: next level 
             
-            Tween tween = tweenCircleOut( circleVO );
+            disableCircleCollider( circleVO );
+            Tween tween = tweenCircleToFillScreen( circleVO );
             addTweenCompleteHandler( tween );
         }
         else
@@ -169,6 +170,15 @@ public class Game : MonoBehaviour
         }
         else
             gameOverHandler();
+    }
+
+
+    /** Disable Circle Collider 2D */
+    private void disableCircleCollider(CircleVO circleVO)
+    {
+        GameObject gameObject = circleVO.gameObject;
+        CircleCollider2D circleCollider2D = gameObject.GetComponent<CircleCollider2D>();
+        circleCollider2D.enabled = false;
     }
 
 
@@ -202,6 +212,15 @@ public class Game : MonoBehaviour
 
 
     /** Tween functions. */
+    private Tween tweenCircleToFillScreen(CircleVO circleVO)
+    {
+        Mutate mutate = circleVO.gameObject.GetComponent<Mutate>();
+        List<Tween> list = doTween.Add( tweenFactory.ScaleFillScreenBounceIn( mutate ) );
+
+        return list[ list.Count - 1 ];        
+        // return null;
+    }
+
     private Tween tweenCircleOut(CircleVO circleVO)
     {
         Mutate mutate = circleVO.gameObject.GetComponent<Mutate>();

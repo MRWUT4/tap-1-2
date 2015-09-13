@@ -11,6 +11,7 @@ using UnityEngine;
 
 public class Names
 {
+	public const string Menu = "Menu";
 	public const string Game = "Game";
 	public const string Result = "Result";
 
@@ -60,7 +61,7 @@ public class Proxy
 	public int numCircles = 3;
 	public int numLevels = 10;
 
-	public float levelTime = 10;
+	public float levelTime = 30;
 	public float minScale = .2f;
 	public float maxScale = .4f;
 	public float force = .2f;
