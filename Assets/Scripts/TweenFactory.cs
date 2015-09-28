@@ -5,14 +5,14 @@ public class TweenFactory
 {
 	public Tween AlphaScaleShowBounceInOut(Mutate mutate, float scale, float delay = 0, float alpha = 1)
 	{
-		return new DoTween().To( mutate, 1.2f, new
+		return new DoTween().To( mutate, .6f, new
         { 
             delay = delay * .1,
             alpha = alpha,
             scaleX = scale,
             scaleY = scale
 
-        }, Back.EaseInOut );
+        }, Back.EaseOut );
 	}
 
     public Tween AlphaScaleBackOut(Mutate mutate, int index )
@@ -40,22 +40,40 @@ public class TweenFactory
 
     public List<Tween> ScaleFillScreenBounceIn(Mutate mutate)
     {
+        GameObject circle = mutate.gameObject;
+        TextMesh textMesh = circle.GetComponentInChildren<TextMesh>();
+        Color color = textMesh.color;
 
-        // GameObject circle = mutate.gameObject;
-        // Debug.Log( circle.GetComponentInChildren<TextMesh>() );
+        Tween tweenColor = new DoTween().To( color, .6f, new
+        {
+            a = 0,
+            gameObject = textMesh
+
+        }, Quad.EaseOut );
+
+        tweenColor.OnUpdate += tweenColorUpdateHandler;
+
+        Tween tweenMutate = new DoTween().To( mutate, .6f, new
+        {
+            x = 0,  
+            y = 0,
+            scaleX = 2,
+            scaleY = 2
+
+        }, Back.EaseIn );
 
         List<Tween> list = new List<Tween>
         {
-            new DoTween().To( mutate, .6f, new
-            {
-                x = 0,  
-                y = 0,
-                scaleX = 2,
-                scaleY = 2
-
-            }, Back.EaseIn )
+            tweenMutate,
+            tweenColor
         };
 
         return list;
+    }
+
+    private void tweenColorUpdateHandler(Tween tween)
+    {
+        TextMesh textMesh = (TextMesh)( tween.Setup[ Tween.KEY_GAMEOBJECT ] );
+        textMesh.color = (Color)tween.Target;
     }
 }

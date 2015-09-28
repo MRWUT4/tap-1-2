@@ -59,6 +59,16 @@ public class CircleVOFactory
     	return list;
 	}
 
+	// public GameObject getCircle()
+	// {
+	// 	GameObject gameObject = Assist.GetGameObjectClone( circlePrefab );
+	// 	SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+
+	// 	spriteRenderer.color = colorBackground; 
+
+	// 	return gameObject;
+	// }
+
 	public NotationDelegate levelNotationDelegate
 	{
 		get 
