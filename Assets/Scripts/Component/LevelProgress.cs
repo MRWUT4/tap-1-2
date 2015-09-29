@@ -7,6 +7,8 @@ public class LevelProgress : MonoBehaviour
     private Mutate mutate;
     private FrameTimer frameTimer;
     private State state;
+    private DoTween doTween;
+    private TweenFactory tweenFactory;
 
     public GameObject progressBar;
 
@@ -20,11 +22,23 @@ public class LevelProgress : MonoBehaviour
         initVariables();
         initLevelFrameTimer();
         initEventHandler();
+        initTweenIn();
     }
 
     public void FixedUpdate()
     {
     	frameTimer.Update();
+        doTween.Update();
+    }
+
+    public void TweenIn()
+    {
+        doTween.Add( tweenFactory.HeightQuadIn( mutate ) );
+    }
+
+    public void TweenOut()
+    {
+        doTween.Add( tweenFactory.HeightQuadOut( mutate ) );
     }
 
 
@@ -35,11 +49,13 @@ public class LevelProgress : MonoBehaviour
     /** Create Module Variables. */
     private void initVariables()
     {
+        doTween = new DoTween();
         setup = gameObject.GetComponent<Setup>();
         proxy = setup.proxy as Proxy;
 		// progressBar = GameObject.Find( Names.ProgressBar );
 		mutate = progressBar.GetComponent<Mutate>();
 		state = setup.state;
+        tweenFactory = proxy.tweenFactory;
     }
 
 
@@ -56,6 +72,13 @@ public class LevelProgress : MonoBehaviour
     {
         initEventHandler( false );
         changeProxyRestTime();
+    }
+
+
+    /** Tween in functions. */
+    private void initTweenIn()
+    {
+        TweenIn();
     }
 
 

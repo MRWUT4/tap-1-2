@@ -117,12 +117,11 @@ public class Proxy
 	{
 		get 
 	    { 
-	        return new Color( 
-	        	UnityEngine.Random.value, 
-	        	UnityEngine.Random.value, 
-	        	UnityEngine.Random.value, 
-	        	1
-	        ); 
+	    	float r = UnityEngine.Random.value;
+	    	float g = UnityEngine.Random.value;
+	    	float b = UnityEngine.Random.value;
+
+	        return new Color( r, g, b, 1 );
 	    }
 	}
 
@@ -143,6 +142,9 @@ public class Proxy
 	{
 		get 
 	    { 
+	    	// Color background = colorBackground;
+
+	    	// _colorCircle = new Color( background.g, background.r, background.b, 1 );
 	    	_colorCircle = _colorCircle != default( Color ) ? _colorCircle : randomColor;
 	        return _colorCircle; 
 	    }

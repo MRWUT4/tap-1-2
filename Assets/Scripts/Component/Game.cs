@@ -15,6 +15,7 @@ public class Game : MonoBehaviour
     private TweenCircle tweenCircle;
     private List<CircleVO> circleVOList;
     private State state;
+    private LevelProgress levelProgress;
 
 
     /**
@@ -103,6 +104,7 @@ public class Game : MonoBehaviour
         doTween = new DoTween( true );
         setup = gameObject.GetComponent<Setup>();
         tweenCircle = gameObject.GetComponent<TweenCircle>();
+        levelProgress = gameObject.GetComponent<LevelProgress>();
         state = setup.state;
         proxy = setup.proxy;
         levelVO = proxy.levelVO;
@@ -201,6 +203,8 @@ public class Game : MonoBehaviour
     {
         initCircleInteraction( false );
         
+        levelProgress.TweenOut();
+
         Tween tween = tweenCircle.AllOut();
         tween.OnComplete += tweenCircleAllOutCompleteHandler;
     }

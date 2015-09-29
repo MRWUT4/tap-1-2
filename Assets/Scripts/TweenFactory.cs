@@ -38,6 +38,30 @@ public class TweenFactory
         }, Back.EaseInOut );
     }
 
+
+    /** Progress Bar tween functions. */
+    public Tween HeightQuadIn(Mutate mutate)
+    {
+        float height = RectTransformHeight( mutate );
+        return new DoTween().From( mutate, .6f, new { y = mutate.y - height }, Quad.EaseOut );
+    }
+
+    public Tween HeightQuadOut(Mutate mutate)
+    {
+        float height = RectTransformHeight( mutate );
+        return new DoTween().To( mutate, .6f, new { y = mutate.y - height }, Quad.EaseIn );
+    }
+
+    public float RectTransformHeight( Mutate mutate )
+    {
+        GameObject gameObject = mutate.gameObject;
+        RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
+        float height = rectTransform.rect.height;
+
+        return height;
+    }
+
+    /** Circle tween functions. */
     public List<Tween> ScaleFillScreenBounceIn(Mutate mutate)
     {
         GameObject circle = mutate.gameObject;
