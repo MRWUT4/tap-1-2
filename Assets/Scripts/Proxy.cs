@@ -3,7 +3,9 @@ using System.Collections;
 using System.Linq;
 using System;
 using UnityEngine;
+using DavidOchmann.Extension;
 
+using Random = UnityEngine.Random;
 
 /**
  * Names
@@ -79,6 +81,11 @@ public class Proxy
 	private Color _colorBackground;	
 	private Color _colorCircle;	
 
+	public float hueBegin = .5f;
+	public float hueStep = .1f;
+	public float saturation = .1f;
+	public float brightness = .1f;
+
 	public Proxy(){}
 
 
@@ -86,6 +93,7 @@ public class Proxy
 	{
 		level = 0;
 		numCircles = 3;
+		colorBackground = default( Color );
 	}
 
 
@@ -113,23 +121,20 @@ public class Proxy
 
 
 	/** Color handling. */
-	public Color randomColor
-	{
-		get 
-	    { 
-	    	float r = UnityEngine.Random.value;
-	    	float g = UnityEngine.Random.value;
-	    	float b = UnityEngine.Random.value;
-
-	        return new Color( r, g, b, 1 );
-	    }
-	}
+	// public Color randomColor
+	// {
+	// 	get 
+	//     { 
+	//     	Color color = new Color().HSB( ( ( level + 1 ) * .1f ) % 1, .1f, 1 );
+	//         return color;
+	//     }
+	// }
 
 	public Color colorBackground
 	{
 		get 
 	    { 
-	    	_colorBackground = _colorBackground != default( Color ) ? _colorBackground : randomColor;
+	    	_colorBackground = _colorBackground != default( Color ) ? _colorBackground : new Color().HSB( hueStep, saturation, brightness );
 	        return _colorBackground; 
 	    }
 	    set
@@ -141,11 +146,10 @@ public class Proxy
 	public Color colorCircle
 	{
 		get 
-	    { 
-	    	// Color background = colorBackground;
+	    {
+	    	float hue = ( level * .5f + level * hueStep ) % 1;
 
-	    	// _colorCircle = new Color( background.g, background.r, background.b, 1 );
-	    	_colorCircle = _colorCircle != default( Color ) ? _colorCircle : randomColor;
+	    	_colorCircle = _colorCircle != default( Color ) ? _colorCircle : new Color().HSB( hue, saturation, brightness );
 	        return _colorCircle; 
 	    }
 	    set
