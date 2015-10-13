@@ -134,7 +134,7 @@ public class Proxy
 	{
 		get 
 	    { 
-	    	_colorBackground = _colorBackground != default( Color ) ? _colorBackground : new Color().HSB( hueStep, saturation, brightness );
+	    	_colorBackground = _colorBackground != default( Color ) ? _colorBackground : new Color().HSB( GetHue( level - 1 ), saturation, brightness );
 	        return _colorBackground; 
 	    }
 	    set
@@ -147,15 +147,22 @@ public class Proxy
 	{
 		get 
 	    {
-	    	float hue = ( level * .5f + level * hueStep ) % 1;
-
-	    	_colorCircle = _colorCircle != default( Color ) ? _colorCircle : new Color().HSB( hue, saturation, brightness );
+	    	_colorCircle = _colorCircle != default( Color ) ? _colorCircle : new Color().HSB( GetHue( level ), saturation, brightness );
 	        return _colorCircle; 
 	    }
 	    set
 	    {
 	    	_colorCircle = value;
 	    }
+	}
+
+
+	private float GetHue(int level)
+	{
+		level = level + 1;
+		float hue = ( hueBegin + ( level * hueStep ) ) % 1;
+		
+		return hue;
 	}
 
 

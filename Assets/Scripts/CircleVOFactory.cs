@@ -90,9 +90,10 @@ public class CircleVOFactory
 	    { 	
 	        return new List<NotationDelegate>
 	        {
-	        	Notation.positive,
-	        	Notation.negative,
-	        	Notation.multiplication
+	        	Notation.roman
+	        	// Notation.positive,
+	        	// Notation.negative,
+	        	// Notation.multiplication
 	        }; 
 	    }
 	}
