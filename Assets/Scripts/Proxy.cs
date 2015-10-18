@@ -121,21 +121,22 @@ public class Proxy
 
 
 	/** Color handling. */
-	// public Color randomColor
-	// {
-	// 	get 
-	//     { 
-	//     	Color color = new Color().HSB( ( ( level + 1 ) * .1f ) % 1, .1f, 1 );
-	//         return color;
-	//     }
-	// }
+	public Color randomColor
+	{
+		get 
+	    { 
+	    	Color color = new Color( Random.value, Random.value, Random.value );
+	        return color;
+	    }
+	}
 
 	public Color colorBackground
 	{
 		get 
 	    { 
 	    	_colorBackground = _colorBackground != default( Color ) ? _colorBackground : new Color().HSB( GetHue( level - 1 ), saturation, brightness );
-	        return _colorBackground; 
+	        // return _colorBackground; 
+	        return randomColor; 
 	    }
 	    set
 	    {
@@ -148,7 +149,8 @@ public class Proxy
 		get 
 	    {
 	    	_colorCircle = _colorCircle != default( Color ) ? _colorCircle : new Color().HSB( GetHue( level ), saturation, brightness );
-	        return _colorCircle; 
+	        // return _colorCircle; 
+	        return randomColor; 
 	    }
 	    set
 	    {

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using DavidOchmann.Extension;
 
 public class Notation
 {
@@ -51,11 +52,7 @@ public class Notation
 		NotationVO notationVO = new NotationVO();
 
 		float value = 1 + Mathf.Floor( Random.value * 99 );
-		string decimalString = ( "0" + value.ToString() );
-
-		if( decimalString.Length > 2 )
-			decimalString = decimalString.Substring( decimalString.Length - 2, decimalString.Length - 1 );
-		
+		string decimalString = (string)( "0" + value.ToString() ).GetLast( 2 );
 		string text = romanOnes( stringAt( decimalString, 1 ), romanTens( stringAt( decimalString, 0 ) ) );
 
 		notationVO.value = value;
@@ -106,6 +103,19 @@ public class Notation
 
 		return "";
 	}
+
+	public static NotationVO hexadecimal(int level, int index, float seed)
+	{
+		NotationVO notationVO = new NotationVO();
+
+		int value = (int)Mathf.Floor( Random.value * ( Mathf.Pow( 16, 3 ) - 1 ) );
+		string hexString = "000000" + value.ToString( "X" );
+
+		notationVO.value = (float)value;
+		notationVO.text = "#" + hexString.GetLast( 3 );
+
+		return notationVO;
+	} 
 }
 
 
