@@ -1,5 +1,5 @@
 using UnityEngine;
-using DavidOchmann.Extension;
+using DavidOchmann.Extensions;
 
 public class Test : MonoBehaviour
 {

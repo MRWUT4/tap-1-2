@@ -51,6 +51,8 @@ public class LevelProgress : MonoBehaviour
     {
         doTween = new DoTween();
         setup = gameObject.GetComponent<Setup>();
+        Debug.Log( setup );
+
         proxy = setup.proxy as Proxy;
 		// progressBar = GameObject.Find( Names.ProgressBar );
 		mutate = progressBar.GetComponent<Mutate>();
@@ -86,6 +88,8 @@ public class LevelProgress : MonoBehaviour
     private void initLevelFrameTimer()
     {
         frameTimer = new FrameTimer( proxy.time );
+        Debug.Log( frameTimer );
+
         frameTimer.OnChange += frameTimerOnChangeHandler;
         frameTimer.OnComplete += frameTimerOnCompleteHandler;
         frameTimer.Start();

@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using DavidOchmann.Extension;
+using DavidOchmann.Extensions;
 
 public class Notation
 {

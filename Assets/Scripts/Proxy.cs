@@ -3,7 +3,7 @@ using System.Collections;
 using System.Linq;
 using System;
 using UnityEngine;
-using DavidOchmann.Extension;
+using DavidOchmann.Extensions;
 
 using Random = UnityEngine.Random;
 
